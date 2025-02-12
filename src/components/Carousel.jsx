@@ -42,7 +42,7 @@ function Carousel({ images }) {
     }, []);
 
     return (
-        <div className="carousel-container m-auto flex justify-center sm:block md:block">
+        <div className="carousel-container m-auto flex justify-center">
             <button
                 className="carousel-arrow opacity-75 rounded-full h-fit my-auto hidden lg:block" 
                 onClick={handlePrev}
