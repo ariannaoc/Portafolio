@@ -1,27 +1,16 @@
+import { FileText } from "lucide-react";
+
 function CvBtn() {
   const download = () => {
     const sharedLink =
-      "https://drive.google.com/file/d/1BM0t1tXlVuxc-yeFBzG0EWjAQ5vB4XKC/view?usp=drive_link";
+      "https://drive.google.com/file/d/1WBXCGGfNX02Pja_k6ligVqczSZ1XoFc8/view?usp=drive_link";
     window.open(sharedLink, "_blank");
   };
   return (
     <>
-      <button onClick={download} className="bg-jade-600 p-4 rounded-3xl flex font-semibold items-center opacity-100">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-7"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m-6 3.75 3 3m0 0 3-3m-3 3V1.5m6 9h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75"
-          />
-        </svg>
-        Resumen curricular
+      <button onClick={download} className="flex items-center space-x-4 bg-jade-400 dark:bg-jade-600 p-4 font-semibold rounded-lg shadow-md w-full max-w-sm justify-center border border-bunker-700 hover:border-jade-500 transform hover:scale-105 transition-all duration-300">
+      <FileText className="mr-2 inline-block" size={20} /> 
+        Ver Curriculum Completo
       </button>
     </>
   );

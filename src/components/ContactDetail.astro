@@ -1,0 +1,27 @@
+---
+import { Mail, Phone, Linkedin } from "lucide-react";
+
+interface Props {
+  icon: "mail" | "phone" | "linkedin";
+  text: string;
+  link: string;
+}
+
+const { icon, text, link } = Astro.props;
+---
+
+<div
+  class="flex items-center space-x-4 bg-jade-200 dark:bg-bunker-800 p-4 rounded-lg shadow-md w-full max-w-sm justify-center border border-bunker-700 hover:border-jade-500 transform hover:scale-105 transition-all duration-300"
+>
+  <div class="text-jade-900 dark:text-jade-500">
+    {icon === "mail" && <Mail client:only="react" className="mr-2" size={24} />}
+    {icon === "phone" && <Phone client:only="react" className="mr-2" size={24} />}
+    {icon === "linkedin" && <Linkedin client:only="react" className="mr-2" size={24} />}
+  </div>
+  <a
+    href={link}
+    class="text-lg  text-bunker-950 dark:text-bunker-200 transition-colors duration-300"
+  >
+    {text}
+  </a>
+</div>
