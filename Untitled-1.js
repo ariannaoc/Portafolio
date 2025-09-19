@@ -1,38 +1,75 @@
-
+import React, { useState, useEffect } from 'react';
 
 // Importa iconos de lucide-react (asegúrate de tenerlo instalado: npm install lucide-react)
 import { Github, Linkedin, Mail, FileText, Code, Layout, User, Award, Phone, ExternalLink, Image, GraduationCap, Briefcase, Languages, Star } from 'lucide-react';
 
 // Componente de la barra de navegación
 const Navbar = () => {
+  // Estado para controlar la visibilidad del menú móvil
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Función para desplazarse a una sección específica
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false); // Cierra el menú móvil después de navegar
+    }
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 bg-[var(--color-bunker-950)] bg-opacity-90 backdrop-blur-sm z-50 p-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
+        {/* Logo/Nombre en la barra de navegación */}
         <a href="#" className="text-white text-2xl font-bold rounded-md p-2 hover:bg-[var(--color-bunker-700)] transition-colors">Arianna Olivares</a>
-        <div className="space-x-4">
-          <NavItem href="#about">Sobre Mí</NavItem>
-          <NavItem href="#experience">Experiencia</NavItem> {/* Nuevo enlace */}
-          <NavItem href="#skills">Habilidades</NavItem>
-          <NavItem href="#projects">Proyectos</NavItem>
-          <NavItem href="#contact">Contacto</NavItem>
+        
+        {/* Menú de escritorio */}
+        <div className="hidden md:flex space-x-4">
+          <NavItem onClick={() => scrollToSection('hero')}>Inicio</NavItem>
+          <NavItem onClick={() => scrollToSection('about')}>Sobre Mí</NavItem>
+          <NavItem onClick={() => scrollToSection('experience')}>Experiencia</NavItem>
+          <NavItem onClick={() => scrollToSection('skills')}>Habilidades</NavItem>
+          <NavItem onClick={() => scrollToSection('projects')}>Proyectos</NavItem>
+          <NavItem onClick={() => scrollToSection('contact')}>Contacto</NavItem>
+        </div>
+
+        {/* Botón de menú para móviles */}
+        <div className="md:hidden">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white focus:outline-none">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}></path>
+            </svg>
+          </button>
         </div>
       </div>
+
+      {/* Menú desplegable para móviles */}
+      {isMenuOpen && (
+        <div className="md:hidden flex flex-col items-center pb-4 mt-2" style={{ backgroundColor: 'var(--color-bunker-900)' }}>
+          <NavItem onClick={() => scrollToSection('hero')} className="block py-2">Inicio</NavItem>
+          <NavItem onClick={() => scrollToSection('about')} className="block py-2">Sobre Mí</NavItem>
+          <NavItem onClick={() => scrollToSection('experience')} className="block py-2">Experiencia</NavItem>
+          <NavItem onClick={() => scrollToSection('skills')} className="block py-2">Habilidades</NavItem>
+          <NavItem onClick={() => scrollToSection('projects')} className="block py-2">Proyectos</NavItem>
+          <NavItem onClick={() => scrollToSection('contact')} className="block py-2">Contacto</NavItem>
+        </div>
+      )}
     </nav>
   );
 };
 
-// Sub-componente para los elementos de navegación
-const NavItem = ({ href, children }) => (
-  <a href={href} className="text-[var(--color-bunker-300)] hover:text-white px-3 py-2 rounded-md text-lg font-medium transition-colors">
+// Sub-componente para los elementos de navegación (usado en Navbar)
+const NavItem = ({ onClick, children, className = "" }) => (
+  <button onClick={onClick} className={`text-[var(--color-bunker-300)] hover:text-white px-3 py-2 rounded-md text-lg font-medium transition-colors ${className}`}>
     {children}
-  </a>
+  </button>
 );
 
-// Componente de la sección Hero
+// Componente de la sección Hero (introducción)
 const HeroSection = () => {
   return (
     <section id="hero" className="relative h-screen flex items-center justify-center bg-gradient-to-br from-[var(--color-bunker-950)] to-[var(--color-bunker-900)] text-white p-4 overflow-hidden">
-      {/* Elementos de fondo vibrantes */}
+      {/* Elementos de fondo vibrantes (animación de "blob") */}
       <div className="absolute inset-0 z-0 opacity-20">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[var(--color-jade-500)] rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
         <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-[var(--color-jade-600)] rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
@@ -47,6 +84,7 @@ const HeroSection = () => {
           Desarrolladora Full Stack en formación | Creando soluciones innovadoras y eficientes.
         </p>
         <div className="flex justify-center space-x-6 animate-fade-in-up delay-400">
+          {/* Enlaces a redes sociales */}
           <SocialLink href="https://github.com/tu-usuario-github" icon={<Github size={28} />} label="GitHub" />
           <SocialLink href="https://linkedin.com/in/tu-usuario-linkedin" icon={<Linkedin size={28} />} label="LinkedIn" />
           <SocialLink href="mailto:ariannaolivares@gmail.com" icon={<Mail size={28} />} label="Email" />
@@ -203,81 +241,131 @@ const ExperienceSection = () => {
 const SkillsSection = () => {
   const skillCategories = [
     {
-      category: 'Desarrollo Frontend',
+      category: "Desarrollo Frontend",
+      id: "frontend",
       skills: [
-        { name: 'JavaScript (ES6+)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
-        { name: 'React (Especialización)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-        { name: 'Astro', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/astro/astro-original.svg' },
-        { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
-        { name: 'CSS3', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
-        { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg' },
-        { name: 'Bootstrap', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg' },
+        { name: "JavaScript (ES6+)", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', description: "Dominio en lógica avanzada para aplicaciones web dinámicas y optimización de rendimiento.", mastery: 95 },
+        { name: "React (Especialización)", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', description: "Construcción de Single Page Applications (SPAs) robustas y creación de componentes reutilizables y eficientes.", mastery: 90 },
+        { name: "Astro", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/astro/astro-original.svg', description: "Creación de sitios web rápidos y optimizados para el rendimiento, islas de interactividad.", mastery: 75 },
+        { name: "HTML5", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', description: "Estructuración semántica y accesible de contenido web.", mastery: 98 },
+        { name: "CSS3", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', description: "Estilización avanzada y diseño responsivo para interfaces de usuario atractivas.", mastery: 97 },
+        { name: "Tailwind CSS", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg', description: "Desarrollo rápido de interfaces de usuario con un enfoque utility-first y diseño responsivo.", mastery: 85 },
+        { name: "Bootstrap", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg', description: "Implementación de frameworks CSS para prototipado rápido y diseño responsivo.", mastery: 80 }
       ]
     },
     {
-      category: 'Desarrollo Backend',
+      category: "Desarrollo Backend",
+      id: "backend",
       skills: [
-        { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-        { name: 'Electron', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg' },
-        { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-        { name: 'C#', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg' },
-        { name: 'Nginx', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg' },
+        { name: "Node.js", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', description: "Desarrollo de APIs RESTful y microservicios escalables para aplicaciones backend.", mastery: 88 },
+        { name: "Electron", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg', description: "Creación de aplicaciones de escritorio multiplataforma utilizando tecnologías web.", mastery: 70 },
+        { name: "Python", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', description: "Desarrollo de scripts, automatización y aplicaciones backend con frameworks como Flask/Django.", mastery: 85 },
+        { name: "C#", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg', description: "Desarrollo de aplicaciones de escritorio y web con .NET Core.", mastery: 78 },
+        { name: "Nginx", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg', description: "Configuración de servidores web para proxy inverso, balanceo de carga y servir contenido estático.", mastery: 65 }
       ]
     },
     {
-      category: 'Bases de Datos',
+      category: "Bases de Datos",
+      id: "databases",
       skills: [
-        { name: 'SQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' }, // Usando PostgreSQL como ejemplo de SQL
-        { name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
-        { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-plain.svg' },
+        { name: "MongoDB", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', description: "Diseño y gestión de bases de datos NoSQL para almacenamiento flexible y eficiente.", mastery: 82 },
+        { name: "SQL (PostgreSQL, MySQL)", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', description: "Diseño, consulta y optimización de bases de datos relacionales.", mastery: 80 }
       ]
     },
     {
-      category: 'Herramientas y Control de Versiones',
+      category: "Herramientas y Control de Versiones",
+      id: "tools",
       skills: [
-        { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-        { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
-        { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
-        { name: 'Scrum', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg' }, // Ejemplo de icono para Scrum
+        { name: "Git", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', description: "Control de versiones distribuido para proyectos colaborativos.", mastery: 90 },
+        { name: "GitHub", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', description: "Colaboración y gestión de repositorios de código en la nube.", mastery: 90 },
+        { name: "Figma", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg', description: "Diseño de interfaces de usuario y prototipado colaborativo.", mastery: 80 },
+        { name: "Scrum", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg', description: "Metodología ágil para la gestión de proyectos de software.", mastery: 70 },
+        { name: "Docker", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-plain.svg', description: "Contenedorización de aplicaciones para desarrollo y despliegue consistentes.", mastery: 75 },
       ]
     },
     {
-      category: 'Sistemas Operativos',
+      category: "Sistemas Operativos",
+      id: "os",
       skills: [
-        { name: 'Linux', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg' },
-        { name: 'Windows', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg' },
+        { name: "Linux", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg', description: "Experiencia en entornos de desarrollo y servidores basados en Linux.", mastery: 85 },
+        { name: "Windows", icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg', description: "Manejo de entornos de desarrollo y productividad en Windows.", mastery: 90 },
       ]
     },
   ];
 
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  // Componente para la tarjeta de habilidad (Flip Card)
+  const SkillCard = ({ skill }) => {
+    const radius = 36;
+    const circumference = radius * 2 * Math.PI;
+    const offset = circumference - (skill.mastery / 100) * circumference;
+
+    return (
+      <div className="skill-card">
+        {/* Parte frontal de la tarjeta */}
+        <div className="card-front">
+          <img src={skill.icon} alt={skill.name} className="skill-icon" />
+          <span className="skill-name">{skill.name}</span>
+        </div>
+        {/* Parte trasera de la tarjeta */}
+        <div className="card-back">
+          <div className="progress-container">
+            <svg className="progress-ring" width="80" height="80">
+              <circle className="progress-ring-bg" stroke="var(--color-bunker-700)" strokeWidth="4" fill="transparent" r={radius} cx="40" cy="40"/>
+              <circle className="progress-ring-circle" stroke="var(--color-jade-500)" strokeWidth="4" fill="transparent" r={radius} cx="40" cy="40"
+                      style={{ strokeDasharray: `${circumference} ${circumference}`, strokeDashoffset: offset }}/>
+              <text x="50%" y="50%" textAnchor="middle" dy="0.3em" className="progress-text">{skill.mastery}%</text>
+            </svg>
+          </div>
+          <p className="skill-description">{skill.description}</p>
+          {/* Opcional: Enlace a proyectos relacionados */}
+          {/* <a href={`#proyectos?skill=${skill.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`} className="projects-link">Ver Proyectos &rarr;</a> */}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section id="skills" className="py-20 bg-[var(--color-bunker-900)] text-white p-4">
       <div className="container mx-auto text-center max-w-6xl">
-        <h2 className="text-4xl font-bold mb-12 text-[var(--color-jade-500)] drop-shadow-md">Mis Habilidades</h2>
-        {skillCategories.map((categoryData, catIndex) => (
-          <div key={catIndex} className="mb-12">
-            <h3 className="text-3xl font-semibold mb-8 text-[var(--color-jade-500)] border-b border-[var(--color-bunker-700)] pb-4 inline-block drop-shadow-sm">
-              {categoryData.category}
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 mt-6">
-              {categoryData.skills.map((skill, skillIndex) => (
-                <SkillCard key={skillIndex} name={skill.name} icon={skill.icon} />
-              ))}
-            </div>
-          </div>
-        ))}
+        <h2 className="text-4xl font-bold mb-12 text-[var(--color-jade-500)] drop-shadow-md">Mi Ecosistema Tecnológico</h2>
+        <p className="text-xl text-[var(--color-bunker-300)] mb-8">
+          Explora las herramientas y plataformas con las que construyo soluciones innovadoras y robustas, transformando ideas en realidad digital.
+        </p>
+
+        {/* Contenedor de las pestañas de navegación */}
+        <div className="tabs-container">
+          <button
+            className={`tab-button ${activeCategory === 'all' ? 'active' : ''}`}
+            onClick={() => setActiveCategory('all')}
+          >
+            Todos
+          </button>
+          {skillCategories.map(cat => (
+            <button
+              key={cat.id}
+              className={`tab-button ${activeCategory === cat.id ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat.id)}
+            >
+              {cat.category}
+            </button>
+          ))}
+        </div>
+
+        {/* Contenedor para todas las habilidades */}
+        <div className="all-skills-container skills-grid">
+          {skillCategories.map(categoryData => (
+            (activeCategory === 'all' || activeCategory === categoryData.id) &&
+            categoryData.skills.map((skill, skillIndex) => (
+              <SkillCard key={skillIndex} skill={skill} />
+            ))
+          ))}
+        </div>
       </div>
     </section>
   );
 };
-
-// Sub-componente para las tarjetas de habilidad
-const SkillCard = ({ name, icon }) => (
-  <div className="bg-[var(--color-bunker-800)] p-6 rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col items-center justify-center text-center border border-[var(--color-bunker-700)] hover:border-[var(--color-jade-500)]">
-    <img src={icon} alt={name} className="w-16 h-16 mb-4 object-contain" />
-    <h3 className="text-xl font-semibold text-[var(--color-bunker-200)]">{name}</h3>
-  </div>
-);
 
 // Componente de la sección Proyectos
 const ProjectsSection = () => {
@@ -317,26 +405,30 @@ const ProjectsSection = () => {
     // Agrega más proyectos aquí si tienes
   ];
 
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [currentProjectImages, setCurrentProjectImages] = useState([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(null); // Estado para la imagen seleccionada en el modal
+  const [currentProjectImages, setCurrentProjectImages] = useState([]); // Imágenes del proyecto actual en el modal
+  const [currentImageIndex, setCurrentImageIndex] = useState(0); // Índice de la imagen actual en el modal
 
+  // Abre el modal de imágenes
   const openImageModal = (images) => {
     setCurrentProjectImages(images);
     setCurrentImageIndex(0);
     setSelectedImage(images[0]);
   };
 
+  // Cierra el modal de imágenes
   const closeImageModal = () => {
     setSelectedImage(null);
     setCurrentProjectImages([]);
   };
 
+  // Navega a la siguiente imagen en el modal
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % currentProjectImages.length);
     setSelectedImage(currentProjectImages[(currentImageIndex + 1) % currentProjectImages.length]);
   };
 
+  // Navega a la imagen anterior en el modal
   const prevImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + currentProjectImages.length) % currentProjectImages.length);
     setSelectedImage(currentProjectImages[(currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length]);
@@ -522,8 +614,218 @@ const App = () => {
           --color-jade-600: #396860;
           --color-jade-700: #31544e;
           --color-jade-800: #2a4541;
-          --color-jade-900: #263b37;
-          --color-jade-950: #122120;
+          --color-jade-900: #263b37; /* Tono de jade más oscuro */
+          --color-jade-950: #122120; /* Tono de jade aún más oscuro */
+        }
+
+        /* Estilos para el scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+          background: var(--color-bunker-900);
+        }
+        ::-webkit-scrollbar-thumb {
+          background: var(--color-jade-500);
+          border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: var(--color-jade-600);
+        }
+
+        /* Estilos para la sección de habilidades (flip card) */
+        .skills-section {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+
+        .section-title {
+            color: var(--color-jade-500); /* Verde vibrante para el título principal */
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .section-subtitle {
+            color: var(--color-bunker-300);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 1.125rem;
+            font-weight: 400;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Estilos para los botones de las pestañas */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tab-button {
+            background-color: var(--color-bunker-700); /* Fondo de botón inactivo */
+            color: var(--color-bunker-300);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            border: 2px solid transparent;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-button:hover {
+            background-color: var(--color-bunker-600);
+            color: var(--color-bunker-100);
+        }
+
+        .tab-button.active {
+            background-color: var(--color-jade-500); /* Color activo */
+            color: var(--color-bunker-950); /* Texto oscuro para contraste */
+            border-color: var(--color-jade-500);
+            box-shadow: 0 4px 8px rgba(67, 118, 108, 0.2); /* Sombra con color jade */
+        }
+
+        /* Estilos para la cuadrícula de habilidades */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+            padding-top: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Estilos para las tarjetas de habilidad (flip card) */
+        .skill-card {
+            background-color: var(--color-bunker-800); /* Fondo de tarjeta de habilidad */
+            border-radius: 0.75rem;
+            perspective: 1000px; /* Para el efecto 3D flip */
+            height: 180px; /* Altura fija para todas las tarjetas */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid var(--color-bunker-700); /* Borde inicial */
+        }
+
+        .skill-card:hover {
+            transform: rotateY(180deg);
+            border-color: var(--color-jade-500); /* Borde al hover */
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Oculta la parte trasera al voltear */
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            box-sizing: border-box;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .card-front {
+            background-color: var(--color-bunker-800);
+            z-index: 2;
+            opacity: 1;
+        }
+
+        .skill-card:hover .card-front {
+            opacity: 0;
+        }
+
+        .card-back {
+            background-color: var(--color-bunker-700); /* Fondo de la parte trasera de la tarjeta */
+            transform: rotateY(180deg);
+            opacity: 0;
+            color: var(--color-bunker-100);
+            font-size: 0.875rem;
+            text-align: center;
+            justify-content: flex-start; /* Alinea el contenido hacia arriba */
+            padding-top: 1.5rem;
+        }
+
+        .skill-card:hover .card-back {
+            opacity: 1;
+        }
+
+        .skill-icon {
+            width: 4rem; /* Tamaño del icono */
+            height: 4rem;
+            margin-bottom: 0.75rem;
+            /* No se aplica color aquí, se espera que la imagen SVG tenga color */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .skill-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-bunker-100);
+        }
+
+        .skill-description {
+            margin-top: 0.5rem;
+            line-height: 1.4;
+            font-size: 0.9rem;
+            color: var(--color-bunker-200);
+        }
+
+        .projects-link {
+            margin-top: 0.75rem;
+            color: var(--color-jade-500);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .projects-link:hover {
+            color: var(--color-jade-300);
+        }
+
+        /* Estilos para el círculo de progreso SVG */
+        .progress-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg); /* Inicia el trazo desde la parte superior */
+            transform-origin: 50% 50%;
+        }
+
+        .progress-ring-bg {
+            stroke: var(--color-bunker-700); /* Color de fondo del círculo de progreso */
+        }
+
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease-in-out;
+            stroke: var(--color-jade-500); /* Color del progreso */
+        }
+
+        .progress-text {
+            fill: var(--color-bunker-100);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-anchor: middle;
+            dominant-baseline: central;
         }
 
         /* Animaciones */
@@ -564,6 +866,58 @@ const App = () => {
         }
         .animation-delay-2000 { animation-delay: 2s; }
         .animation-delay-4000 { animation-delay: 4s; }
+
+        /* Media queries para responsividad */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            .section-subtitle {
+                font-size: 1rem;
+            }
+            .tab-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            .skill-card {
+                height: 160px;
+            }
+            .skill-icon {
+                width: 3.5rem;
+                height: 3.5rem;
+            }
+            .skill-name {
+                font-size: 1.1rem;
+            }
+            .skill-description {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.75rem;
+            }
+            .section-subtitle {
+                font-size: 0.9rem;
+            }
+            .tab-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr; /* Una columna en pantallas muy pequeñas */
+                padding: 1rem;
+            }
+            .skill-card {
+                height: 150px;
+            }
+        }
         `}
       </style>
 
