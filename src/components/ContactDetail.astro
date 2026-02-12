@@ -3,25 +3,41 @@ import { Mail, Phone, Linkedin } from "lucide-react";
 
 interface Props {
   icon: "mail" | "phone" | "linkedin";
+  title: string;
   text: string;
   link: string;
 }
 
-const { icon, text, link } = Astro.props;
+const { icon, title, text, link } = Astro.props;
 ---
 
-<div
-  class="flex items-center space-x-4 bg-jade-200 dark:bg-bunker-800 p-4 rounded-lg shadow-md w-full max-w-sm justify-center border border-bunker-700 hover:border-jade-500 transform hover:scale-105 transition-all duration-300"
->
-  <div class="text-jade-900 dark:text-jade-500">
-    {icon === "mail" && <Mail client:only="react" className="mr-2" size={24} />}
-    {icon === "phone" && <Phone client:only="react" className="mr-2" size={24} />}
-    {icon === "linkedin" && <Linkedin client:only="react" className="mr-2" size={24} />}
-  </div>
-  <a
-    href={link}
-    class="text-lg  text-bunker-950 dark:text-bunker-200 transition-colors duration-300"
+  <div
+    class="flex flex-col items-center gap-4 justify-center
+         bg-white dark:bg-bunker-900
+         shadow-lg dark:shadow-none
+         dark:border-2 dark:border-bunker-800
+         rounded-2xl
+         lg:min-w-80 min-w-60
+         p-4 sm:p-6 lg:px-8 mb-6
+         dark:hover:opacity-70 hover:bg-jade-100 transition-colors duration-300
+         "
   >
-    {text}
-  </a>
-</div>
+    <div class="text-jade-500">
+      {icon === "mail" && <Mail size={40} strokeWidth={2.5} />}
+      {icon === "phone" && <Phone size={40} strokeWidth={2.5} />}
+      {icon === "linkedin" && <Linkedin size={40} strokeWidth={2.5} />}
+    </div>
+
+    <h3
+      class="text-bunker-600 dark:text-bunker-400 text-lg font-medium tracking-wide"
+    >
+      {title}
+    </h3>
+    <a
+      href={link}
+      class="dark:text-white text-bunker-900 text-xl font-bold hover:text-jade-500 transition-colors duration-300 truncate"
+    >
+      {text}
+    </a>
+  </div>
+

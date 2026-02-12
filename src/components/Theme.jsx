@@ -19,7 +19,10 @@ function Theme() {
 
     <div className="text-right">
       <button
-        className="absolute top-10 right-4 z-50 p-2 rounded-full bg-jade-50 dark:bg-jade-900/30 text-jade-950 dark:text-jade-100 hover:bg-jade-600 hover:text-white dark:hover:bg-jade-500 hover:scale-110 transition-all duration-150"
+        className="absolute top-10 right-4 z-50 p-2 rounded-full 
+        bg-jade-50 dark:bg-jade-900/30 text-jade-950 dark:text-jade-100
+         hover:bg-jade-600 hover:text-white dark:hover:bg-jade-500 
+          transition-colors duration-150"
         onClick={() => {
           theme.set($theme === "light" ? "dark" : "light");
         }}

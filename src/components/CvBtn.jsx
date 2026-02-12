@@ -8,7 +8,10 @@ function CvBtn() {
   };
   return (
     <>
-      <button onClick={download} className="flex items-center space-x-4 bg-jade-500/80 dark:bg-jade-600/50 text-jade-950 dark:text-jade-200 p-4 font-semibold rounded-lg shadow-md w-full max-w-sm justify-center border border-jade-500 transform hover:scale-105 transition-all duration-300">
+      <button onClick={download} className="flex items-center space-x-4 bg-jade-500/80 dark:bg-jade-600/50 text-jade-950 dark:text-jade-200 
+      p-4 font-semibold rounded-lg shadow-md w-full max-w-sm justify-center 
+      border border-jade-500 
+    hover:bg-jade-500 dark:hover:opacity-70 transition-colors duration-300">
       <FileText className="mr-2 inline-block" size={20} /> 
         Ver Curriculum Completo
       </button>

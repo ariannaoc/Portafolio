@@ -1,14 +1,40 @@
 ---
-import ContactDetail from '../components/ContactDetail.astro';
+import ContactDetail from "../components/ContactDetail.astro";
 ---
 
-<section id="contact" class="py-20 bg-jade-300 dark:bg-bunker-900 text-white p-4">
+<section id="contact" class="py-20 text-white mx-5 lg:mx-20">
   <div class="container mx-auto text-center max-w-3xl">
-    <h2 class="text-4xl font-bold mb-12 text-jade-900 dark:text-jade-500 drop-shadow-md">Contáctame</h2>
-    <div class="flex flex-col items-center space-y-6">
-      <ContactDetail icon="mail" text="ariannaolivares@gmail.com" link="mailto:ariannaolivares@gmail.com" />
-      <ContactDetail icon="phone" text="(+58) 414-7503836" link="tel:+584147503836" />
-      <ContactDetail icon="linkedin" text="LinkedIn" link="https://www.linkedin.com/in/ariannaoc" />
+    <h2
+      class="text-4xl font-bold mb-12 text-jade-950 dark:text-jade-50 drop-shadow-md"
+    >
+      Contáctame
+    </h2>
+    <div class="lg:flex items-center gap-10 justify-center">
+      <ContactDetail
+        icon="mail"
+        title="Email"
+        text="ariannaolivares@gmail.com"
+        link="mailto:ariannaolivares@gmail.com"
+      />
+      <ContactDetail
+        icon="phone"
+        title="Teléfono"
+        text="(+58) 414-7503836"
+        link="tel:+584147503836"
+      />
+      <ContactDetail
+        icon="linkedin"
+        title="Linkedin"
+        text="Arianna Olivares"
+        link="https://www.linkedin.com/in/ariannaoc"
+      />
     </div>
   </div>
+  
+  <footer class="mt-20">
+  <hr class="border-bunker-700 my-10">
+  <div class="text-bunker-500 dark:text-bunker-400 text-sm font-medium tracking-wide text-center">
+    <span>© 2026 <span class="text-jade-600 dark:text-jade-500 font-bold uppercase">Arianna Olivares</span></span>
+  </div>
+</footer>
 </section>
