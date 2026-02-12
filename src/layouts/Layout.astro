@@ -1,6 +1,5 @@
 ---
 import Header from "../components/Header.astro";
-import Footer from "../components/Contact-Footer.astro";
 import ContactFooter from "../components/Contact-Footer.astro";
 interface Props {
   title: string;
@@ -19,10 +18,9 @@ const { title } = Astro.props;
   </head>
 
   <body class="dark:bg-bunker-950 m-auto bg-bunker-50">
-    <header class="m-8">
+    <header>
       <Header />
     </header>
-    <br class="hidden lg:block xl:block" />
     <slot />
     <br class="hidden lg:block xl:block" />
     <footer>

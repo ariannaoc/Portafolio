@@ -1,32 +1,52 @@
 ---
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
+
+
 ---
+
+
 <div
-  class="relative flex flex-col justify-center items-center py-16 xl:px-24 px-10 rounded-2xl text-center w-full h-screen min-w-64 bg-gradient-to-r shadow-lg dark:shadow-none dark:from-jade-900 dark:via-jade-500 dark:to-jade-900 from-jade-600 via-jade-400 to-jade-600"
+  class=" flex flex-col justify-center items-center bg-jade-100 dark:bg-jade-950 text-center w-full h-screen min-w-64"
 >
-  <h1
-    class="text-xl xl:text-6xl lg:text-5xl md:text-3xl sm:text-2xl font-bold dark:text-jade-50 mt-1 mb-1 xl:mt-8 xl:mb-5 lg:mt-8 lg:mb-5 sm:mt-6 sm:mb-3"
-  >
-    Arianna Olivares
-  </h1>
-  <h3 class="xl:text-3xl font-semibold text-jade-950 dark:text-jade-950">
-    Desarrolladora Full Stack en formación
-  </h3>
-  <br>
-  <p class="xl:text-xl font-medium text-jade-900 dark:text-jade-200">
-    Desarrollo aplicaciones web multiplataforma, interfaces de usuario modernas
-    y responsivas.
-  </p>
-  <ul class="flex mt-4 items-center place-content-center">
-    <li class="mr-2">
-      <a href="https://github.com/ariannaoc">
-        <Github size={36} className="hover:scale-110 transition-all duration-150" />
+
+    <h1
+      class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight text-jade-950 dark:text-white mb-4"
+    >
+      Arianna <span class="text-jade-600 dark:text-jade-500">Olivares</span>
+    </h1>
+
+    <h3 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-jade-950 dark:text-jade-50 max-w-2xl mx-auto leading-tight">
+      Desarrolladora Full Stack en formación
+    </h3>
+
+    <p class="mt-6 text-base sm:text-lg md:text-xl font-medium text-jade-900/70 dark:text-jade-100/60 max-w-xl mx-auto leading-relaxed">
+      Especializada en crear aplicaciones web multiplataforma con interfaces modernas, intuitivas y totalmente responsivas.
+    </p>
+    <br/>
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-jade-300/15 border border-jade-500/20 text-jade-600 dark:text-jade-400 text-xs font-bold uppercase tracking-widest mb-6 animate-fade-in">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-jade-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-jade-500"></span>
+      </span>
+      Disponible para trabajar
+    </span>
+
+
+    <div class="flex mt-5 items-center justify-center gap-6">
+      <a 
+        href="https://github.com/ariannaoc" 
+        class="group p-3 rounded-full bg-jade-50 dark:bg-jade-900/30 text-jade-950 dark:text-jade-100 hover:bg-jade-600 hover:text-white dark:hover:bg-jade-500 transition-all duration-300 shadow-sm"
+      >
+        <Github size={28} className="group-hover:scale-110 transition-transform" />
       </a>
-    </li>
-    <li class="m-2">
-      <a href="https://www.linkedin.com/in/ariannaoc">
-        <Linkedin size={36} className="hover:scale-110 transition-all duration-150" />
+      
+      <a 
+        href="https://www.linkedin.com/in/ariannaoc" 
+        class="group p-3 rounded-full bg-jade-50 dark:bg-jade-900/30 text-jade-950 dark:text-jade-100 hover:bg-jade-600 hover:text-white dark:hover:bg-jade-500 transition-all duration-300 shadow-sm"
+      >
+        <Linkedin size={28} className="group-hover:scale-110 transition-transform" />
       </a>
-    </li>
-  </ul>
+    </div>
+
+    
 </div>

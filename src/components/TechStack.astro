@@ -1,0 +1,44 @@
+---
+import Card from "./Card.astro";
+import SliderTools from "./SliderTools.astro";
+---
+
+<section id="techStack" class="py-16 text-jade-950 dark:text-bunker-100 ">
+  <div
+    class="container mx-auto text-lg leading-relaxed text-bunker-950 dark:text-bunker-300 text-center"
+  >
+    <h2 class="text-4xl font-bold mb-6 dark:text-jade-50 drop-shadow-md">
+      Tech Stack
+    </h2>
+    <p>Herramientas y tecnologías principales en las que me especializo</p>
+  </div>
+
+  <div class="my-16">
+    <SliderTools />
+  </div>
+
+  <div class="mx-20">
+    <div
+      class="xl:flex lg:flex md:grid md:grid-cols-2 w-full justify-between gap-6"
+    >
+      <Card
+        src="/tools/gbranch.png"
+        title="Git - GitHub"
+        body="Control de versiones "
+      />
+      <Card
+        src="/tools/terminal.png"
+        title="Linux - Windows"
+        body="Manejo de Sistemas Operativos "
+      />
+
+      <Card
+        src="/tools/agile.png"
+        title=" Scrum - XP "
+        body="Desarrollo Agil"
+      />
+
+      <Card src="/tools/figma.png" title="Figma" body="Diseño UI/UX " />
+    </div>
+  </div>
+</section>
